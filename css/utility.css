@@ -1,0 +1,66 @@
+.border{
+    /* border: 2px solid red; */
+    margin: 5px;
+}
+.flex{
+    display: flex;
+}
+
+.justify-center{
+    justify-content: center;
+}
+
+.items-center{
+    align-items: center;
+}
+
+.bg-black{
+    background-color:black;
+    color: white;
+}
+.bg-grey{
+    /* background-color:#121212; */
+     background-color: #0c1519be;
+    color: white;
+}
+.invert{
+    filter: invert(1);
+}
+.br-8{
+border-radius: 8px;
+}
+.p-6{
+    padding: 6px;
+}
+
+.f-col{
+    flex-direction: column;
+}
+
+.p-15{
+    padding: 15px;
+}
+.p-10{
+    padding: 10px;
+}
+.c-grey{
+    color: grey;
+}
+.hov:hover{
+color:#1fdf64;
+}
+.m-15{
+    margin: 15px;
+}
+.cursor-pointer{
+    cursor: pointer;
+}
+.trans-3{
+transition: all .3s cubic-bezier(0.3,0,0,1);
+}
+.m-6{
+    margin: 6px;
+}
+.m-3{
+    margin: 3px;
+}

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify - Web Player: Music for everyone</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/utility.css">
+</head>
+
+<body>
+    <div class="container  bg-black flex">
+        <div class="
+        left flex f-col ">
+           
+            <div class="home bg-grey flex br-8 p-15">
+                 <img class="invert close cursor-pointer" src="assets/close.svg" alt="">
+                <ul>
+                    <li>
+                        <img class=" spotifyl hov trans-3" src="assets/logo.svg" alt="spotify">
+                    </li>
+                    <li>
+                        <img  class="invert hov trans-3" src="assets/home.svg" alt="Home"> Home
+                    </li>
+                    <li class="search hov trans-3">
+                        <img class="invert"  src="assets/search.svg" alt="search"> Search
+                    </li>
+                </ul>
+            </div>
+            <div class="library bg-grey flex f-col  p-15 br-8 ">
+                <div class="heading flex items-center hov">
+                    <img src="assets/library.svg" class="invert" alt="library">
+                    <h2 class="c-grey hov trans-3">Your Library</h2>
+                </div>
+                <div class="songlistcont flex f-col items-center br-8 p-6">
+                    <ul class="songlist items-center flex f-col ">
+
+                    </ul>
+                </div>
+                <div class="footer m-6">
+
+                    <div>
+                        <a href="https://www.spotify.com/in-en/legal/">
+                            <span class="hov">Legal</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="https://www.spotify.com/in-en/safetyandprivacy/">
+                            <span >Safety & Privacy Center</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="https://www.spotify.com/in-en/legal/privacy-policy/">
+                            <span >Privacy Policy</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="https://www.spotify.com/in-en/legal/cookies-policy/">
+                            <span >Cookies</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="https://www.spotify.com/in-en/legal/privacy-policy/#s3">
+                            <span >About Ads</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="https://www.spotify.com/in-en/accessibility/">
+                            <span >Accessibility</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="right  bg-grey br-8 ">
+            <div class="headercont flex items-center">
+                <div class="header m-15">
+                    <div class="nav flex items-center">
+                        <img class="hamburger invert cursor-pointer" src="assets/hamburger.svg" alt="">
+                        <svg  xmlns="http://www.w3.org/2000/svg" class="btns cursor-pointer" viewBox="0 0 24 24" width="24"
+                            height="24" color="#ffffff" fill="none">
+                            <path d="M15 6C15 6 9.00001 10.4189 9 12C8.99999 13.5812 15 18 15 18" stroke="currentColor"
+                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+
+                        <svg  xmlns="http://www.w3.org/2000/svg" class="btns cursor-pointer" viewBox="0 0 24 24" width="24"
+                            height="24" color="#ffffff" fill="none">
+                            <path d="M9.00005 6C9.00005 6 15 10.4189 15 12C15 13.5812 9 18 9 18" stroke="currentColor"
+                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div class="button flex items-center">
+                        <button class=" btn btn-blc cursor-pointer trans-3">Sign Up</button>
+                        <button class=" btn btn-wht  cursor-pointer trans-3">Log in</button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="playlists m-15 flex f-col items-center justify-center ">
+               <div class="h1 flex items-center">
+
+                 <h1>Spotify Playlists</h1>
+               </div>
+                    <div class="cards flex br-8">
+                </div>
+                
+             
+            </div>
+            <div class="playbar flex f-col  items-center">
+                <div class="volume items-center">
+                    <img class="invert cursor-pointer " id="Volume" src="assets/volume.svg" alt="">
+                    
+                    <!-- <div class="range">
+                        <input type="range" name="volume" class="vol">
+                    </div>  -->
+                    
+                    <div class="seekbarvol  br-8 flex items-center cursor-pointer">
+                     <div class="coloredpartvol"></div>
+                    <div class="circlevol cursor-pointer"></div>
+                    </div> 
+                    <div class="volval">
+                        100
+                    </div> 
+                </div>
+                
+                <div class="songinfo "></div>
+                <div class="songbuttons flex">
+                  
+                    <img id="prev" class="cursor-pointer invert  " src="assets/Prev.svg" alt="">
+                    <img id="play" class="cursor-pointer invert  " src="assets/Play.svg" alt="">
+                    <img id="next" class="cursor-pointer invert  " src="assets/next.svg" alt="">
+                </div>
+                <div class="timeinfo flex items-center justify-center">
+                       <div class="starttime time">00:00</div>
+                    <div class="seekbar  br-8 flex items-center cursor-pointer">
+                        <div class="coloredpart"></div>
+                    <div class="circle cursor-pointer">
+                    </div>
+                </div>
+                <div class="endtime time">00:00</div>
+                </div>
+                
+            </div>
+
+        </div>
+    </div>
+    <script src="Js//script.js"></script>
+</body>
+
+</html>
