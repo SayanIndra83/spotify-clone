@@ -2,7 +2,7 @@ let prevsong;
 let songs;
 let currfolder;
 async function getsong(folder) {
-    let a = await fetch(`http://127.0.0.1:5500/${folder}/`)
+    let a = await fetch(`/${folder}/`)
     currfolder = folder;
     let response = await a.text();
     let div = document.createElement('div');
@@ -96,7 +96,7 @@ function formatTime(seconds) {
 let currentsong = new Audio();
 
 async function Displayallbums() {
-    let a = await fetch(`http://127.0.0.1:5500/songs/`)
+    let a = await fetch(`/songs/`)
     let response = await a.text();
     let div = document.createElement('div');
     div.innerHTML = response;
@@ -106,7 +106,7 @@ async function Displayallbums() {
         if(e.href.includes("/songs/")){
            let folder = e.href.split("/songs/")[1];
            //Get the meta data of the folder
-            let a = await fetch(`http://127.0.0.1:5500/songs/${folder}/info.json`)
+            let a = await fetch(`songs/${folder}/info.json`)
            let response = await a.json();
            document.querySelector(".cards").innerHTML=document.querySelector(".cards").innerHTML+
            ` <div data-folder="${folder}" class="card br-8 p-10 m-10\  cursor-pointer">
