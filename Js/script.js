@@ -1,6 +1,7 @@
 let prevsong;
 let songs;
 let currfolder;
+let currentsong = new Audio();
 async function getsong(folder) {
     let a = await fetch(`/${folder}/`)
     currfolder = folder;
@@ -11,23 +12,23 @@ async function getsong(folder) {
     songs = [];
     for (let index = 0; index < as.length; index++) {
         const element = as[index];
-        if (element.href.endsWith(".mp3")) songs.push(element.href)
-
+        if (element.href.endsWith(".mp3")){ songs.push(element.href.split(`/${folder}/`)[1].replace(".mp3","").trim())
+            console.log(element.href.split(`/${folder}/`)[1].replace(".mp3","").trim())
+}
     }
 
     //By default the first song should be playing
 
-    playmusic(decodeURIComponent(songs[0].split(`/${currfolder}/`)[1].replace(".mp3", "")), true)
-    console.log(decodeURIComponent(songs[0].split(`/${currfolder}/`)[1].replace(".mp3", "")));
+    playmusic(decodeURIComponent(songs[0]), true)
     //Show all the songs in the Playlist....
 
     let songul = document.querySelector(".songlistcont").getElementsByTagName("ul")[0];
     songul.innerHTML=""
     for (const song of songs) {
-        songul.innerHTML = songul.innerHTML + ` <li class="song br-8 flex p-10 items-center cursor-pointer">
+        songul.innerHTML = songul.innerHTML + ` <li class="song br-8 flex items-center cursor-pointer">
                                 <img class="invert" src="assets/music.svg" alt="">
                                 <div class="info flex f-col justify-center">
-                                    <div class="songname">${decodeURIComponent(song.split(`/${currfolder}/`)[1].replace(".mp3", ""))}</div>
+                                    <div class="songname">${decodeURI(song)}</div>
                                     <div class="artist hover">Sayan</div>
                                 </div>
                                 <div class="playnow flex items-center">
@@ -53,9 +54,28 @@ async function getsong(folder) {
                 prevsong = img;
 
                 //checking wheather current song is paused and if yes resume it instead of restart it..
-                let srcc = decodeURIComponent(currentsong.src.split(`/${currfolder}/`)[1].replace(".mp3", ""))
-                if (srcc == song.querySelector(".songname").innerHTML && currentsong.paused) currentsong.play();
-                else playmusic(song.querySelector(".songname").innerHTML)
+                // let srcc = decodeURIComponent(currentsong.src.split(`/${currfolder}/`)[1])
+                // console.log(srcc)
+                // console.log(song.querySelector(".songname").innerHTML)
+                // if (srcc.includes(song.querySelector(".songname").innerHTML) && currentsong.paused) {currentsong.play();
+                    
+                // }
+                // else{ playmusic(song.querySelector(".songname").innerHTML)
+
+                //     console.log(1);
+                // }
+
+                let srcc = decodeURIComponent(currentsong.src.split(`/${currfolder}/`).pop() || "").replace(".mp3","").trim();
+                let clickedName = song.querySelector(".songname").innerHTML.trim();
+
+                if (srcc === clickedName && currentsong.paused) {
+                    currentsong.play();
+                } else {
+                    let actualFileName = decodeURI(song.querySelector(".songname").innerHTML);
+                        playmusic(actualFileName);
+                }
+
+
             }
             else {
                 img.src = "assets/Play.svg";
@@ -80,12 +100,13 @@ async function getsong(folder) {
 
 
 const playmusic = (track, pause = false) => {
-    currentsong.src = `/${currfolder}/` + track + ".mp3";
+    currentsong.src = `/${currfolder}/` + decodeURI(track)+".mp3";
+
     if (!pause) {
         currentsong.play();
         play.src = "assets/pause.svg";
     }
-    document.querySelector(".songinfo").innerHTML = track;
+    document.querySelector(".songinfo").innerHTML = decodeURI(track.replace(".mp3", ""))
 }
 function formatTime(seconds) {
     const mins = Math.floor(seconds / 60);
@@ -94,7 +115,7 @@ function formatTime(seconds) {
     return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
 }
 
-let currentsong = new Audio();
+
 
 async function Displayallbums() {
     let a = await fetch(`/songs/`)
@@ -235,33 +256,33 @@ async function main() {
     //Add a eventlisteners to prev and next
 
     prev.addEventListener("click", () => {
-        let idx = songs.indexOf(currentsong.src)
+        let idx = songs.indexOf((currentsong.src.split(`/${currfolder}/`).pop() || "").replace(".mp3","").trim())
         prevsong.src = "assets/Play.svg";
         if (idx == 0) {
             prevsong = document.querySelector(".songlist").children[songs.length - 1].querySelector(".play");
             prevsong.src = "assets/pause.svg";
-            playmusic(decodeURIComponent(songs[songs.length - 1].split(`/${currfolder}/`)[1].replace(".mp3", "")))
+            playmusic(decodeURIComponent(songs[songs.length - 1]))
         }
         if (idx - 1 >= 0) {
             prevsong = document.querySelector(".songlist").children[idx - 1].querySelector(".play");
             prevsong.src = "assets/pause.svg";
-            playmusic(decodeURIComponent(songs[idx - 1].split(`/${currfolder}/`)[1].replace(".mp3", "")))
+            playmusic(decodeURIComponent(songs[idx - 1]))
         }
 
     })
 
     next.addEventListener("click", () => {
-        let idx = songs.indexOf(currentsong.src)
+        let idx = songs.indexOf((currentsong.src.split(`/${currfolder}/`).pop() || "").replace(".mp3","").trim())
         prevsong.src = "assets/Play.svg";
         if (idx == songs.length - 1) {
             prevsong = document.querySelector(".songlist").children[0].querySelector(".play");
             prevsong.src = "assets/pause.svg";
-            playmusic(decodeURIComponent(songs[0].split(`/${currfolder}/`)[1].replace(".mp3", "")))
+            playmusic(decodeURIComponent(songs[0]))
         }
         else if (idx + 1 < songs.length) {
             prevsong = document.querySelector(".songlist").children[idx + 1].querySelector(".play");
             prevsong.src = "assets/pause.svg";
-            playmusic(decodeURIComponent(songs[idx + 1].split(`/${currfolder}/`)[1].replace(".mp3", "")))
+            playmusic(decodeURIComponent(songs[idx + 1]))
         }
     })
 

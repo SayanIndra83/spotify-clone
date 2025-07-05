@@ -369,6 +369,7 @@ overflow-y: scroll;
 scrollbar-width: none;
 font-size: 17px;
 font-weight: 400;
+padding: 15px 10px;
 gap: 17px;
 }
 .song:hover{
