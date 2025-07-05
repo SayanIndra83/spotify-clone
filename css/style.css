@@ -267,7 +267,7 @@ background: transparent;
     position: relative;
     width: 98%;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 15px;
     height: 100%;
     scrollbar-width: none;
     overflow-y: scroll;
@@ -275,7 +275,7 @@ background: transparent;
 }
 .card{
 position: relative;
-width: 192px;
+width: 198px;
 height: 250px;
 box-sizing: border-box;
 border: .7px solid #505050 ;

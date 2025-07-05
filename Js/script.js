@@ -16,9 +16,7 @@ async function getsong(folder) {
 }
     }
 
-    //By default the first song should be playing
-
-    playmusic(decodeURIComponent(songs[0]), true)
+   
     //Show all the songs in the Playlist....
 
     let songul = document.querySelector(".songlistcont").getElementsByTagName("ul")[0];
@@ -80,7 +78,9 @@ async function getsong(folder) {
         document.querySelector(".endtime").innerHTML = formatTime(currentsong.duration);
         document.querySelector(".starttime").innerHTML = formatTime(currentsong.currentTime);
     })
+     //By default the first song should be playing
 
+    playmusic(decodeURIComponent(songs[0]), true)
 
     return songs;
 }
@@ -92,6 +92,7 @@ const playmusic = (track, pause = false) => {
     if (!pause) {
         currentsong.play();
         play.src = "assets/pause.svg";
+        prevsong.src = "assets/pause.svg";
     }
     document.querySelector(".songinfo").innerHTML = decodeURI(track.replace(".mp3", ""))
 }
@@ -106,19 +107,20 @@ function formatTime(seconds) {
 
 async function Displayallbums() {
     let a = await fetch(`/songs/`)
+    console.log("albums are getting displayed")
     let response = await a.text();
     let div = document.createElement('div');
     div.innerHTML = response;
     let array=Array.from(div.getElementsByTagName("a"));
     for (let index = 0; index < array.length; index++) {
         const e = array[index];
-        if(e.href.includes("/songs/")){
-           let folder = e.href.split("/songs/")[1];
+        if(e.href.includes(`/songs/`) && !e.href.includes(".htaccess")){
+           let folder = e.href.split(`/songs/`)[1];
            //Get the meta data of the folder
             let a = await fetch(`/songs/${folder}/info.json`)
-           let response = await a.json();
+            let response = await a.json();
            document.querySelector(".cards").innerHTML=document.querySelector(".cards").innerHTML+
-           ` <div data-folder="${folder}" class="card br-8 p-10 m-10\  cursor-pointer">
+           ` <div data-folder="${folder}" class="card br-8 p-10 m-10 cursor-pointer">
                         <div class="imagecont br-8">
                             <img class="svg" src="assets/spotifylogo.svg" alt="">
                             <img class="br-8 contentimg"
@@ -155,6 +157,17 @@ async function Displayallbums() {
 `
         }
     }
+
+     //Load the library whenever someone clicked on card
+
+    Array.from(document.getElementsByClassName("card")).forEach(e=>{
+        e.addEventListener("click",async item=>{
+             document.querySelector(".circle").style.left = 0 + "%";
+             document.querySelector(".coloredpart").style.width = 0 + "%"
+            songs = await getsong(`songs/${item.currentTarget.dataset.folder}`);
+            playmusic(songs[0]);
+        })
+    })
 }
 async function main() {
       
@@ -274,18 +287,19 @@ async function main() {
             currentsong.pause();
             currentsong.currentTime = 0;
             prevsong.src = "assets/Play.svg";
+            console.log(prevsong.src)
             //Update to next song
 
-            let idx = songs.indexOf(currentsong.src)
+            let idx = songs.indexOf((currentsong.src.split(`/${currfolder}/`).pop() || "").replace(".mp3","").trim())
             if (idx == songs.length - 1) {
                 prevsong = document.querySelector(".songlist").children[0].querySelector(".play");
                 prevsong.src = "assets/pause.svg";
-                playmusic(decodeURIComponent(songs[0].split(`/${currfolder}/`)[1].replace(".mp3", "")))
+                playmusic(songs[0])
             }
             else if (idx + 1 < songs.length) {
                 prevsong = document.querySelector(".songlist").children[idx + 1].querySelector(".play");
                 prevsong.src = "assets/pause.svg";
-                playmusic(decodeURIComponent(songs[idx + 1].split(`/${currfolder}/`)[1].replace(".mp3", "")))
+                playmusic(songs[idx + 1])
             }
         }
     });
@@ -355,18 +369,7 @@ async function main() {
 
 
 
-    //Load the library whenever someone clicked on card
-
-    Array.from(document.getElementsByClassName("card")).forEach(e=>{
-        e.addEventListener("click",async item=>{
-            if(play.src.includes("assets/pause.svg")) play.src="assets/Play.svg";
-            // if(prevsong.src.includes())
-             document.querySelector(".circle").style.left = 0 + "%";
-             document.querySelector(".coloredpart").style.width = 0 + "%"
-            songs = await getsong(`songs/${item.currentTarget.dataset.folder}`);
-            
-        })
-    })
+   
 }
 
 main();
