@@ -18,6 +18,7 @@ async function getsong(folder) {
     //By default the first song should be playing
 
     playmusic(decodeURIComponent(songs[0].split(`/${currfolder}/`)[1].replace(".mp3", "")), true)
+    console.log(decodeURIComponent(songs[0].split(`/${currfolder}/`)[1].replace(".mp3", "")));
     //Show all the songs in the Playlist....
 
     let songul = document.querySelector(".songlistcont").getElementsByTagName("ul")[0];
