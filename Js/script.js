@@ -70,7 +70,7 @@ async function getsong(folder) {
      //listen for metadata update
     currentsong.addEventListener("loadedmetadata", () => {
         document.querySelector(".endtime").innerHTML = formatTime(currentsong.duration);
-        document.querySelector(".stattime").innerHTML = formatTime(currentsong.currentTime);
+        document.querySelector(".starttime").innerHTML = formatTime(currentsong.currentTime);
     })
 
 
