@@ -13,7 +13,6 @@ async function getsong(folder) {
     for (let index = 0; index < as.length; index++) {
         const element = as[index];
         if (element.href.endsWith(".mp3")){ songs.push(element.href.split(`/${folder}/`)[1].replace(".mp3","").trim())
-            console.log(element.href.split(`/${folder}/`)[1].replace(".mp3","").trim())
 }
     }
 
@@ -52,18 +51,6 @@ async function getsong(folder) {
                 img.src = "assets/pause.svg";
                 play.src = "assets/pause.svg";
                 prevsong = img;
-
-                //checking wheather current song is paused and if yes resume it instead of restart it..
-                // let srcc = decodeURIComponent(currentsong.src.split(`/${currfolder}/`)[1])
-                // console.log(srcc)
-                // console.log(song.querySelector(".songname").innerHTML)
-                // if (srcc.includes(song.querySelector(".songname").innerHTML) && currentsong.paused) {currentsong.play();
-                    
-                // }
-                // else{ playmusic(song.querySelector(".songname").innerHTML)
-
-                //     console.log(1);
-                // }
 
                 let srcc = decodeURIComponent(currentsong.src.split(`/${currfolder}/`).pop() || "").replace(".mp3","").trim();
                 let clickedName = song.querySelector(".songname").innerHTML.trim();
@@ -243,13 +230,9 @@ async function main() {
 
     document.querySelector(".hamburger").addEventListener("click", () => {
         document.querySelector(".left").style.left = 0 + "%"
-        // document.querySelector(".close").style.display="block" ;
-        // document.querySelector(".hamburger").style.display="none" ;
     })
     document.querySelector(".close").addEventListener("click", () => {
         document.querySelector(".left").style.left = -100 + "%"
-        // document.querySelector(".close").style.display="none" ;
-        // document.querySelector(".hamburger").style.display="block" ;
     })
 
 
