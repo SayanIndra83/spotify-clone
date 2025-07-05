@@ -106,11 +106,7 @@ async function Displayallbums() {
         if(e.href.includes("/songs/")){
            let folder = e.href.split("/songs/")[1];
            //Get the meta data of the folder
-<<<<<<< HEAD
-            let a = await fetch(`songs/${folder}/info.json`)
-=======
             let a = await fetch(`/songs/${folder}/info.json`)
->>>>>>> e8c556c9caf428003a4fcdc335a0904d2eaddeab
            let response = await a.json();
            document.querySelector(".cards").innerHTML=document.querySelector(".cards").innerHTML+
            ` <div data-folder="${folder}" class="card br-8 p-10 m-10\  cursor-pointer">
