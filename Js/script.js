@@ -1,3 +1,4 @@
+// Set baseURL to handle GitHub Pages path issues
 const baseURL = location.hostname.includes("github.io") ? "/spotify-clone" : "";
 
 let prevsong;
@@ -6,22 +7,10 @@ let currfolder;
 let currentsong = new Audio();
 
 async function getsong(folder) {
-    let a = await fetch(`${baseURL}/${folder}/`)
-    // currfolder = folder
+    let a = await fetch(`${baseURL}/${folder}/list.json`);
     currfolder = folder.replace(/^.*?songs\//, "songs/").replace(/\/$/, "");
-
-
-    let response = await a.text();
-    let div = document.createElement('div');
-    div.innerHTML = response;
-    let as = div.getElementsByTagName('a');
-    songs = [];
-    for (let index = 0; index < as.length; index++) {
-        const element = as[index];
-        if (element.href.endsWith(".mp3")) {
-            songs.push(element.href.split(`/${folder}/`)[1].replace(".mp3", "").trim())
-        }
-    }
+    let songsList = await a.json();
+    songs = songsList.map(song => song.replace(".mp3", "").trim());
 
     let songul = document.querySelector(".songlistcont ul");
     songul.innerHTML = "";
@@ -80,7 +69,6 @@ async function getsong(folder) {
 
 const playmusic = (track, pause = false) => {
     currentsong.src = `${baseURL}/${currfolder}/` + decodeURI(track) + ".mp3";
-    // currentsong.src = `${baseURL}/${currfolder}/${track}.mp3`;
 
     if (!pause) {
         currentsong.play();
@@ -142,15 +130,10 @@ async function Displayallbums() {
     });
 }
 
-
 async function main() {
-    // Load default songs (e.g., from "ncs" folder)
     await getsong("songs/ncs");
-
-    // Display all available albums
     await Displayallbums();
 
-    // Play/Pause button handler
     play.addEventListener("click", () => {
         if (currentsong) {
             if (currentsong.paused) {
@@ -165,7 +148,6 @@ async function main() {
         }
     });
 
-    // Sync seekbar with time
     currentsong.addEventListener("timeupdate", () => {
         document.querySelector(".starttime").innerHTML = formatTime(currentsong.currentTime);
         const progress = (currentsong.currentTime / currentsong.duration) * 100;
@@ -173,7 +155,6 @@ async function main() {
         document.querySelector(".circle").style.left = `${progress}%`;
     });
 
-    // Seekbar click to seek
     document.querySelector(".seekbar").addEventListener("click", (e) => {
         let seekbar = e.currentTarget;
         let rect = seekbar.getBoundingClientRect();
@@ -184,7 +165,6 @@ async function main() {
         currentsong.currentTime = currentsong.duration * percentage;
     });
 
-    // Responsive sidebar
     document.querySelector(".hamburger").addEventListener("click", () => {
         document.querySelector(".left").style.left = "0%";
     });
@@ -192,6 +172,7 @@ async function main() {
     document.querySelector(".close").addEventListener("click", () => {
         document.querySelector(".left").style.left = "-100%";
     });
+
 
      //Add a eventlisteners to prev and next
 
