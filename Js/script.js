@@ -7,7 +7,10 @@ let currentsong = new Audio();
 
 async function getsong(folder) {
     let a = await fetch(`${baseURL}/${folder}/`)
-    currfolder = folder;
+    // currfolder = folder
+    currfolder = folder.replace(/^.*?songs\//, "songs/").replace(/\/$/, "");
+
+
     let response = await a.text();
     let div = document.createElement('div');
     div.innerHTML = response;
@@ -77,6 +80,7 @@ async function getsong(folder) {
 
 const playmusic = (track, pause = false) => {
     currentsong.src = `${baseURL}/${currfolder}/` + decodeURI(track) + ".mp3";
+    // currentsong.src = `${baseURL}/${currfolder}/${track}.mp3`;
 
     if (!pause) {
         currentsong.play();
