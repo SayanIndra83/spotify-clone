@@ -93,7 +93,7 @@ async function Displayallbums() {
     let array = Array.from(div.getElementsByTagName("a"));
     for (let index = 0; index < array.length; index++) {
         const e = array[index];
-        if (e.href.includes(`/songs/`) && !e.href.includes(".htaccess")) {
+        if (e.href.includes(`/songs/`) && !e.href.includes(".htaccess") && !e.href.match(/\.(mp3|txt|json|jpg|png|jpeg)$/)) {
             let folder = e.href.split(`/songs/`)[1];
             let a = await fetch(`${baseURL}/songs/${folder}/info.json`);
             let response = await a.json();
