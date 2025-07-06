@@ -86,6 +86,8 @@ function formatTime(seconds) {
 
 async function Displayallbums() {
     let a = await fetch(`${baseURL}/songs/`);
+    // let folders = await a.json();
+    // let a = await fetch(`${baseURL}/songs/`);
     console.log("albums are getting displayed");
     let response = await a.text();
     let div = document.createElement('div');
@@ -177,8 +179,10 @@ async function main() {
      //Add a eventlisteners to prev and next
 
     prev.addEventListener("click", () => {
-        let idx = songs.indexOf((currentsong.src.split(`/${currfolder}/`).pop() || "").replace(".mp3","").trim())
+        let idx = songs.indexOf(decodeURI(currentsong.src.split(`/${currfolder}/`).pop() || "").replace(".mp3","").trim())
+        console.log(idx)
         prevsong.src = `${baseURL}/assets/Play.svg`;
+        console.log(songs[0])
         if (idx == 0) {
             prevsong = document.querySelector(".songlist").children[songs.length - 1].querySelector(".play");
             prevsong.src = `${baseURL}/assets/pause.svg`;
@@ -193,7 +197,7 @@ async function main() {
     })
 
     next.addEventListener("click", () => {
-        let idx = songs.indexOf((currentsong.src.split(`/${currfolder}/`).pop() || "").replace(".mp3","").trim())
+        let idx = songs.indexOf(decodeURI(currentsong.src.split(`/${currfolder}/`).pop() || "").replace(".mp3","").trim())
         prevsong.src = `${baseURL}/assets/Play.svg`;
         if (idx == songs.length - 1) {
             prevsong = document.querySelector(".songlist").children[0].querySelector(".play");
