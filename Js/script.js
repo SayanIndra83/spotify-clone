@@ -84,44 +84,81 @@ function formatTime(seconds) {
     return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
 }
 
+// async function Displayallbums() {
+// //     let a = await fetch(`${baseURL}/songs/index.json`);
+//     let folders = await a.json();
+//     console.log("albums are getting displayed");
+//     let response = await a.text();
+//     let div = document.createElement('div');
+//     div.innerHTML = response;
+//     let array = Array.from(div.getElementsByTagName("a"));
+//     for (let index = 0; index < array.length; index++) {
+//         const e = array[index];
+//         if (e.href.includes(`/songs/`) && !e.href.includes(".htaccess") && !e.href.match(/\.(mp3|txt|json|jpg|png|jpeg)$/)) {
+//             let folder = e.href.split(`/songs/`)[1];
+//             let a = await fetch(`${baseURL}/songs/${folder}/info.json`);
+//             let response = await a.json();
+//             document.querySelector(".cards").innerHTML += `
+//                 <div data-folder="${folder}" class="card br-8 p-10 m-10 cursor-pointer">
+//                     <div class="imagecont br-8">
+//                         <img class="svg" src="${baseURL}/assets/spotifylogo.svg" alt="">
+//                         <img class="br-8 contentimg" src="${baseURL}/songs/${folder}/cover.jpg" alt="">
+//                     </div>
+//                     <div class="text">
+//                         <h2>${response.title}</h2>
+//                         <p class="c-grey">${response.description}</p>
+//                     </div>
+//                     <div class="playsvg trans-3">
+
+//                     </div>
+//                 </div>`;
+//         }
+//     }
+
+//     Array.from(document.getElementsByClassName("card")).forEach(e => {
+//         e.addEventListener("click", async item => {
+//             document.querySelector(".circle").style.left = "0%";
+//             document.querySelector(".coloredpart").style.width = "0%";
+//             songs = await getsong(`songs/${item.currentTarget.dataset.folder}`);
+//             playmusic(songs[0]);
+//         });
+//     });
+// }
+
+
 async function Displayallbums() {
-    let a = await fetch(`${baseURL}/songs/`);
-    // let folders = await a.json();
-    // let a = await fetch(`${baseURL}/songs/`);
+    let a = await fetch(`${baseURL}/songs/index.json`);
+    let folders = await a.json();
+
     console.log("albums are getting displayed");
-    let response = await a.text();
-    let div = document.createElement('div');
-    div.innerHTML = response;
-    let array = Array.from(div.getElementsByTagName("a"));
-    for (let index = 0; index < array.length; index++) {
-        const e = array[index];
-        if (e.href.includes(`/songs/`) && !e.href.includes(".htaccess") && !e.href.match(/\.(mp3|txt|json|jpg|png|jpeg)$/)) {
-            let folder = e.href.split(`/songs/`)[1];
-            let a = await fetch(`${baseURL}/songs/${folder}/info.json`);
-            let response = await a.json();
-            document.querySelector(".cards").innerHTML += `
-                <div data-folder="${folder}" class="card br-8 p-10 m-10 cursor-pointer">
-                    <div class="imagecont br-8">
-                        <img class="svg" src="${baseURL}/assets/spotifylogo.svg" alt="">
-                        <img class="br-8 contentimg" src="${baseURL}/songs/${folder}/cover.jpg" alt="">
-                    </div>
-                    <div class="text">
-                        <h2>${response.title}</h2>
-                        <p class="c-grey">${response.description}</p>
-                    </div>
-                    <div class="playsvg trans-3">
-                        <svg fill="#3ab738" height="45px" width="45px" version="1.1" id="Layer_1"
+
+    for (let folder of folders) {
+        let a = await fetch(`${baseURL}/songs/${folder}/info.json`);
+        let response = await a.json();
+
+        document.querySelector(".cards").innerHTML += `
+            <div data-folder="${folder}" class="card br-8 p-10 m-10 cursor-pointer">
+                <div class="imagecont br-8">
+                    <img class="svg" src="${baseURL}/assets/spotifylogo.svg" alt="">
+                    <img class="br-8 contentimg" src="${baseURL}/songs/${folder}/cover.jpg" alt="">
+                </div>
+                <div class="text">
+                    <h2>${response.title}</h2>
+                    <p class="c-grey">${response.description}</p>
+                </div>
+                <div class="playsvg trans-3">
+                                           <svg fill="#3ab738" height="45px" width="45px" version="1.1" id="Layer_1"
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" stroke="#3ab738">
                             <path fill="#1fdf64" d="M150,0C67.157,0,0,67.162,0,150c0,82.841,67.157,150,150,150s150-67.159,150-150C300,67.162,232.843,0,150,0z"></path>
                             <path fill="#000000" d="M205.846,158.266l-86.557,49.971c-1.32,0.765-2.799,1.144-4.272,1.144c-1.473,0-2.949-0.379-4.274-1.144 
                                 c-2.64-1.525-4.269-4.347-4.269-7.402V100.89c0-3.053,1.631-5.88,4.269-7.402c2.648-1.528,5.906-1.528,8.551,0l86.557,49.974 
                                 c2.645,1.53,4.274,4.352,4.269,7.402C210.12,153.916,208.494,156.741,205.846,158.266z"></path>
                         </svg>
-                    </div>
-                </div>`;
-        }
+                </div>
+            </div>`;
     }
 
+    // Attach click listeners
     Array.from(document.getElementsByClassName("card")).forEach(e => {
         e.addEventListener("click", async item => {
             document.querySelector(".circle").style.left = "0%";
@@ -208,8 +245,8 @@ async function main() {
      //Add a eventlisteners to prev and next
 
     prev.addEventListener("click", () => {
-        let idx = songs.indexOf(decodeURI(currentsong.src.split(`/${currfolder}/`).pop() || "").replace(".mp3","").trim())
-        console.log(idx)
+        let idx = songs.indexOf((decodeURI(currentsong.src).split(`/${currfolder}/`).pop() || "").replace(".mp3","").trim())
+        console.log((decodeURI(currentsong.src).split(`/${currfolder}/`).pop() || "").replace(".mp3","").trim())
         prevsong.src = `${baseURL}/assets/Play.svg`;
         console.log(songs[0])
         if (idx == 0) {
@@ -226,7 +263,7 @@ async function main() {
     })
 
     next.addEventListener("click", () => {
-        let idx = songs.indexOf(decodeURI(currentsong.src.split(`/${currfolder}/`).pop() || "").replace(".mp3","").trim())
+       let idx = songs.indexOf((decodeURI(currentsong.src).split(`/${currfolder}/`).pop() || "").replace(".mp3","").trim())
         prevsong.src = `${baseURL}/assets/Play.svg`;
         if (idx == songs.length - 1) {
             prevsong = document.querySelector(".songlist").children[0].querySelector(".play");
@@ -248,7 +285,7 @@ async function main() {
             console.log(prevsong.src)
             //Update to next song
 
-            let idx = songs.indexOf(decodeURI(currentsong.src.split(`/${currfolder}/`).pop() || "").replace(".mp3","").trim())
+            let idx = songs.indexOf((decodeURI(currentsong.src).split(`/${currfolder}/`).pop() || "").replace(".mp3","").trim())
             if (idx == songs.length - 1) {
                 prevsong = document.querySelector(".songlist").children[0].querySelector(".play");
                 prevsong.src = `${baseURL}/assets/pause.svg`;
