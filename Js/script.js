@@ -167,6 +167,35 @@ async function main() {
         currentsong.currentTime = currentsong.duration * percentage;
     });
 
+
+     // Drag and seek
+    const seekbar = document.querySelector(".seekbar");
+    const circle = document.querySelector(".circle");
+    const coloredPart = document.querySelector(".coloredpart");
+    let isDragging = false;
+    // Step 1: Start dragging
+    circle.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        e.preventDefault(); // Prevent text selection
+    });
+    // Step 2: Handle movement
+    document.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        const rect = seekbar.getBoundingClientRect();
+        let x = e.clientX - rect.left;
+        // Clamp x within bounds
+        x = Math.max(0, Math.min(x, rect.width));
+        let percentage = (x / rect.width) * 100;
+        circle.style.left = percentage + "%";
+        coloredPart.style.width = percentage + "%";
+        currentsong.currentTime = (currentsong.duration * percentage) / 100;
+
+    });
+    // Step 3: Stop dragging
+    document.addEventListener("mouseup", () => {
+        isDragging = false;
+    });
+
     document.querySelector(".hamburger").addEventListener("click", () => {
         document.querySelector(".left").style.left = "0%";
     });
@@ -219,7 +248,7 @@ async function main() {
             console.log(prevsong.src)
             //Update to next song
 
-            let idx = songs.indexOf((currentsong.src.split(`/${currfolder}/`).pop() || "").replace(".mp3","").trim())
+            let idx = songs.indexOf(decodeURI(currentsong.src.split(`/${currfolder}/`).pop() || "").replace(".mp3","").trim())
             if (idx == songs.length - 1) {
                 prevsong = document.querySelector(".songlist").children[0].querySelector(".play");
                 prevsong.src = `${baseURL}/assets/pause.svg`;
