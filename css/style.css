@@ -41,8 +41,6 @@ body{
 }
 .home{
     position: relative;
-    /* height: 340px;
-    width: calc(100% - 30px); */
     background-color:#121212;
 }
 .home ul{
@@ -166,7 +164,6 @@ border: none;
     top: 0;
     border-top-left-radius:8px ;
     border-top-right-radius:8px ;
-    /* background-color: #1f1e1e; */
     background-color: #1b221a;
     z-index: 10;
 }
@@ -284,12 +281,10 @@ box-sizing: border-box;
 border: .7px solid #505050 ;
 transition: all .5s ease-out;
 margin: 10px;
-/* background-color:#191919; */
 background-color:#1b221a;
 }
 .card:hover{
    background-color: #273125 ;
-    /* background: #292828 ; */
     border-color: #1fdf64;
     .playsvg{
     transform: translateY(-9px);
@@ -360,7 +355,6 @@ width: calc(100% - 20px);
 height:45px;
 color: white;
 background-color: #1b221a;
-/* background-color: #1c1c1c; */
 border: .7px solid  #181818;
 transition: all .4s ease-out;
 overflow:hidden;
@@ -373,14 +367,10 @@ padding: 15px 10px;
 gap: 17px;
 }
 .song:hover{
-     /* background: #353434 ; */
      background-color: #273125 ;
     border-color: #1fdf64;
     transform: scale(1.004,1.004);
 }
-/* .playnow{
-    gap: 7px;
-} */
 .playnow span{
     font-size: 13px;
     font-weight: 400;
@@ -434,7 +424,6 @@ font-weight: 400;
     background-color: #1fdf64;
     position: absolute;
     z-index: 5;
-    /* transition: width 0.5s; */
 }
 .circle{
     position: absolute;
@@ -444,7 +433,7 @@ font-weight: 400;
     width: 12px;
     border-radius: 20px;
     background-color: white; 
-    /* transition: left 0.5s; */
+    cursor:pointer;
 }
 .time{
  font-size: 13px;
@@ -509,7 +498,6 @@ font-weight: 400;
 }
 .song{
     background-color:#1b221a;
-    /* background-color:  #272727; */
 }
 .close{
     display: block;
