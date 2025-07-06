@@ -23,6 +23,7 @@ body{
     height: 100%;
     gap: 7px;
     position: relative;
+    left: 0;
     background-color: black;
 }
 .close{
@@ -40,8 +41,8 @@ body{
 }
 .home{
     position: relative;
-    height: 25%;
-    width: calc(100% - 30px);
+    /* height: 340px;
+    width: calc(100% - 30px); */
     background-color:#121212;
 }
 .home ul{
@@ -80,9 +81,11 @@ body{
     cursor: pointer;
 }
 .library{
-    height:63.5%;
+    height:68%;
+    padding: 15px 15px 0px 15px;
     position: relative;
     background-color: #121212;
+   
 }
 .library h2{
     font-size: 20px;
@@ -339,16 +342,13 @@ font-size: 17px;
 }
 .songlistcont{
 position: relative;
-max-height: 74%;
-width: calc(100%-12px);
+max-height: 68%;
+width: calc(100% - 12px);
 background-color:#0e0e0e;
 overflow-y: scroll;
 scrollbar-width: none;
 }
 .songlist{
-    /* width:calc(100% - 12px) ;
-    background-color: red;
-    height:calc(100% - 12px); */
     position: relative;
     width: 100%;
     gap: 6px;
@@ -357,7 +357,7 @@ scrollbar-width: none;
 .song{
 position: relative;
 width: calc(100% - 20px);
-height:55px;
+height:45px;
 color: white;
 background-color: #1b221a;
 /* background-color: #1c1c1c; */
@@ -465,17 +465,22 @@ font-weight: 400;
 }
 
 }
-@media (max-width: 1085px) {
+@media (min-width: 1150px) and (min-height: 620) {
+  
+}
+@media (max-width: 1150px) {
 .left{
-   background-color:  #272727;
+  background-color: #0c1519;
     position: absolute;
     left: -100%;
+    top: 3%;
     transition: left 1s;
     gap:5px;
     z-index: 5;
-    width: 45%;
-    height: 70%;
+    width: 65%;
+    height: 79%;
     border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
 }
 .headercont, .playbar{
     border-radius: 0;
@@ -500,7 +505,7 @@ font-weight: 400;
     gap: 25px;
 }
 .songlistcont{
-    background-color:#1c1c1c; 
+    background-color: #0c1519;
 }
 .song{
     background-color:#1b221a;
@@ -515,9 +520,12 @@ font-weight: 400;
 .right{
     width: 100%;
 }
-.home img{
+.home .Home, .search, .close{
         height: 28px;
     }
+.spotifyl {
+    height: 48px;
+}
 .home ul{
         gap: 15px;
     }
@@ -533,6 +541,7 @@ font-weight: 400;
      width: 257px;
     height: 335px;
     }
+
 .card:hover{
     .playsvg{
     transform: translateY(-26px);
@@ -543,18 +552,20 @@ font-weight: 400;
     margin-top: 25px;
 }
 .library{
-    height: 80%;
-    background-color: #272727;
+    height: 68%;
+   background-color:  #272727;
 }
 .hamburger{
     display: block;
 }
-
+.btns{
+    display: none;
+}
 }
 
 @media (max-width: 766px) {
     .left{
-        width: 70%; 
+        width: 75%; 
     }
     .volume{
         display:none;
@@ -565,16 +576,19 @@ font-weight: 400;
     .home{
         height: 20%;
     }
-    .home img{
+    .home .Home, .search, .close{
         height: 28px;
+    }
+    .spotifyl{
+        height: 48px;
     }
     .playbar{
     height: 15%;
     gap: 15px;
 }
     .card{
-       width: 220px;
-        height: 290px;
+        width: 282px;
+        height: 375px;
     }
     .card:hover{
     .playsvg{
@@ -596,9 +610,7 @@ font-weight: 400;
 .songname{
     font-size: 15px;
 }
-.btns{
-    display: none;
-}
+
 .btn{
     padding: 10px 18px;
     font-size: 15px;

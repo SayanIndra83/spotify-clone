@@ -84,48 +84,6 @@ function formatTime(seconds) {
     return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
 }
 
-// async function Displayallbums() {
-// //     let a = await fetch(`${baseURL}/songs/index.json`);
-//     let folders = await a.json();
-//     console.log("albums are getting displayed");
-//     let response = await a.text();
-//     let div = document.createElement('div');
-//     div.innerHTML = response;
-//     let array = Array.from(div.getElementsByTagName("a"));
-//     for (let index = 0; index < array.length; index++) {
-//         const e = array[index];
-//         if (e.href.includes(`/songs/`) && !e.href.includes(".htaccess") && !e.href.match(/\.(mp3|txt|json|jpg|png|jpeg)$/)) {
-//             let folder = e.href.split(`/songs/`)[1];
-//             let a = await fetch(`${baseURL}/songs/${folder}/info.json`);
-//             let response = await a.json();
-//             document.querySelector(".cards").innerHTML += `
-//                 <div data-folder="${folder}" class="card br-8 p-10 m-10 cursor-pointer">
-//                     <div class="imagecont br-8">
-//                         <img class="svg" src="${baseURL}/assets/spotifylogo.svg" alt="">
-//                         <img class="br-8 contentimg" src="${baseURL}/songs/${folder}/cover.jpg" alt="">
-//                     </div>
-//                     <div class="text">
-//                         <h2>${response.title}</h2>
-//                         <p class="c-grey">${response.description}</p>
-//                     </div>
-//                     <div class="playsvg trans-3">
-
-//                     </div>
-//                 </div>`;
-//         }
-//     }
-
-//     Array.from(document.getElementsByClassName("card")).forEach(e => {
-//         e.addEventListener("click", async item => {
-//             document.querySelector(".circle").style.left = "0%";
-//             document.querySelector(".coloredpart").style.width = "0%";
-//             songs = await getsong(`songs/${item.currentTarget.dataset.folder}`);
-//             playmusic(songs[0]);
-//         });
-//     });
-// }
-
-
 async function Displayallbums() {
     let a = await fetch(`${baseURL}/songs/index.json`);
     let folders = await a.json();
@@ -246,9 +204,9 @@ async function main() {
 
     prev.addEventListener("click", () => {
         let idx = songs.indexOf((decodeURI(currentsong.src).split(`/${currfolder}/`).pop() || "").replace(".mp3","").trim())
-        console.log((decodeURI(currentsong.src).split(`/${currfolder}/`).pop() || "").replace(".mp3","").trim())
+            document.querySelector(".circle").style.left = 0;
+            document.querySelector(".coloredpart").style.width = 0;
         prevsong.src = `${baseURL}/assets/Play.svg`;
-        console.log(songs[0])
         if (idx == 0) {
             prevsong = document.querySelector(".songlist").children[songs.length - 1].querySelector(".play");
             prevsong.src = `${baseURL}/assets/pause.svg`;
@@ -264,6 +222,8 @@ async function main() {
 
     next.addEventListener("click", () => {
        let idx = songs.indexOf((decodeURI(currentsong.src).split(`/${currfolder}/`).pop() || "").replace(".mp3","").trim())
+        document.querySelector(".circle").style.left = 0;
+        document.querySelector(".coloredpart").style.width = 0;
         prevsong.src = `${baseURL}/assets/Play.svg`;
         if (idx == songs.length - 1) {
             prevsong = document.querySelector(".songlist").children[0].querySelector(".play");
@@ -281,6 +241,8 @@ async function main() {
         if (currentsong.currentTime >= currentsong.duration - 0.1) {
             currentsong.pause();
             currentsong.currentTime = 0;
+            document.querySelector(".circle").style.left = 0;
+            document.querySelector(".coloredpart").style.width = 0;
             prevsong.src = `${baseURL}/assets/Play.svg`;
             console.log(prevsong.src)
             //Update to next song
